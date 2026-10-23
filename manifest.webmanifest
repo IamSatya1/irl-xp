@@ -1,0 +1,19 @@
+{
+  "name": "IRL XP",
+  "short_name": "IRL XP",
+  "description": "Turn real-life goals into quests. Earn XP, level up, and build consistency.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f7fb",
+  "theme_color": "#f7f7fb",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

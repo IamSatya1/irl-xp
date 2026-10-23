@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f6f2">
+<title>IRL XP</title>
+<style>
+:root{--bg:#f5f6f2;--card:#fff;--ink:#18221b;--muted:#697367;--line:#e4e8df;--green:#8bc65a;--deep:#243426;--pale:#e5eedc;--lav:#e8e8f8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.app{max-width:520px;margin:auto;min-height:100dvh;padding:22px 16px 32px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.eyebrow{font-size:11px;letter-spacing:.12em;color:var(--muted);font-weight:750}
+h1{font-size:27px;letter-spacing:-.04em;line-height:1.05;margin:6px 0 0}h2{font-size:18px;margin:0;letter-spacing:-.02em}
+.logo{width:46px;height:46px;display:grid;place-items:center;background:#ddf4b7;color:#34551b;border-radius:15px;font-size:25px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+.profile{display:flex;align-items:center;gap:12px}.avatar{width:52px;height:52px;border-radius:16px;background:#eaf0e4;display:grid;place-items:center;font-size:22px}
+.grow{flex:1;min-width:0}.player{font-size:19px;font-weight:800;margin:2px 0}.sub{color:var(--muted);font-size:13px}.total{text-align:right;font-size:23px;font-weight:850}.total small{display:block;font-size:10px;letter-spacing:.1em;color:var(--muted)}
+.progressline{display:flex;justify-content:space-between;font-size:13px;color:#3f4d3b;margin:18px 0 8px}.track{height:9px;background:#e9ede5;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--green);width:0%;transition:width .25s}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{border-radius:17px;padding:14px;background:var(--pale)}.stat.purple{background:var(--lav)}.stat .num{font-size:22px;font-weight:850;margin:4px 0}.stat .label{font-size:13px;color:#52664b}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}.tab{border:1px solid var(--line);border-radius:12px;padding:12px;background:white;font-weight:750;color:#344032}.tab.active{background:var(--deep);border-color:var(--deep);color:white}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:8px 2px 12px}.quest{background:white;border:1px solid var(--line);border-radius:17px;padding:13px;margin-bottom:10px}.qtop{display:flex;align-items:center;gap:11px}.qicon{width:42px;height:42px;border-radius:13px;background:#f0f2ed;display:grid;place-items:center;font-size:20px}.qtitle{font-weight:800}.qdesc{font-size:13px;color:var(--muted);margin-top:3px}.reward{margin-left:auto;font-weight:800;color:#42672f;white-space:nowrap;font-size:14px}
+button{font:inherit;cursor:pointer}.claim{width:100%;margin-top:12px;padding:11px;border:0;border-radius:11px;background:var(--deep);color:white;font-weight:750}.claim:disabled{background:#e5efdf;color:#48633d}
+.ranknote{background:#ddf4b7;border-radius:15px;padding:13px;margin-top:12px;color:#344a29;font-size:14px}
+.row{display:flex;align-items:center;gap:10px}.place{width:25px;font-weight:800;color:#596650}.miniavatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#f0f2ed}.leader{padding:11px;border:1px solid var(--line);border-radius:13px;display:flex;align-items:center;gap:10px;margin-top:9px;background:#fff}.leader.you{background:#eaf3e2;border-color:#b7d6a3}.xp{margin-left:auto;font-weight:800;font-size:14px;color:#354e2a}.seg{display:flex;background:#f0f2ed;border-radius:10px;padding:3px;margin:12px 0}.seg button{flex:1;border:0;background:transparent;border-radius:8px;padding:8px;color:#53604f;font-weight:700}.seg button.active{background:#fff;color:#1e2a1e;box-shadow:0 1px 4px #0001}
+input{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink)}.smallbtn{width:100%;padding:11px;background:transparent;border:1px solid var(--line);border-radius:12px;font-weight:700;color:var(--muted);margin-top:10px}.verify{font-size:12px;color:#697367;margin-top:8px}.timer{font-size:13px;color:#34551b;font-weight:800;margin-top:8px}
+footer{text-align:center;color:#778072;font-size:11px;margin-top:16px}
+@media(min-width:520px){.app{padding-top:30px}}
+
+.photo-proof{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.photo-slot{min-width:0;border:1px dashed var(--line,#d9dce5);border-radius:12px;padding:10px;background:rgba(120,120,140,.04)}
+.photo-slot label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}
+.photo-input{display:block;width:100%;font-size:11px;max-width:100%}
+.photo-hint{font-size:11px;line-height:1.4;color:var(--muted,#777);margin-top:8px;min-height:30px}
+.proof-preview{display:block;width:100%;height:105px;object-fit:cover;border-radius:8px;margin-top:9px}
+@media(max-width:360px){.photo-proof{grid-template-columns:1fr}.proof-preview{height:140px}}
+\n</style>
+<meta name="theme-color" content="#f7f7fb">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+<main class="app">
+<header><div><div class="eyebrow">IRL XP</div><h1>Level up your life.</h1></div><div class="logo">ϟ</div></header>
+<section class="card">
+ <div class="profile"><div class="avatar">♙</div><div class="grow"><div class="eyebrow">PLAYER PROFILE</div><div class="player" id="playerName">PLAYER 001</div><div class="sub">Level <span id="level">1</span> · <span id="rank">BRONZE</span> rank</div></div><div class="total"><span id="totalXP">0</span><small>TOTAL XP</small></div></div>
+ <div class="progressline"><strong>Next level</strong><span><b id="progressXP">0</b> / 300 XP</span></div><div class="track"><div class="fill" id="fill"></div></div><div class="sub" style="margin-top:7px" id="toNext">300 XP until level 2</div>
+</section>
+<div class="stats"><div class="stat"><div>◎</div><div class="num" id="questCount">0/3</div><div class="label">Quests completed</div></div><div class="stat purple"><div>🏆</div><div class="num" id="rankCard">BRONZE</div><div class="label">Current tier</div></div></div>
+<nav class="tabs"><button class="tab active" id="questsTab">Daily quests</button><button class="tab" id="leaderTab">Leaderboard</button></nav>
+<section id="questsView"><div class="sectionhead"><h2>Today's missions</h2><span class="sub">Daily goals</span></div><div id="quests"></div><div id="allDone"></div></section>
+<section id="leaderView" hidden><div class="sectionhead"><h2>Season leaderboard</h2></div><div class="sub">Demo players · rankings aren't live yet</div><div class="seg"><button class="active" id="weekBtn">This week</button><button id="seasonBtn">Season</button></div><div id="leaders"></div></section>
+<section class="card" style="margin-top:16px"><div class="sectionhead"><h2>Your player name</h2></div><input id="nameInput" maxlength="20" placeholder="Enter a player name"><button class="claim" id="saveName">Save name</button><button class="smallbtn" id="reset">Reset demo progress</button></section>
+<footer>IRL XP prototype · Timed quests + honest completion checks · Saves on this device</footer>
+</main>
+<script>
+const missions=[
+{id:1,name:"Focus session",desc:"Study or work for 25 minutes",xp:30,icon:"📚",minutes:25,verify:"25-minute focus timer"},
+{id:2,name:"Workout session",desc:"Complete a workout for 15 minutes",xp:20,icon:"💪",minutes:15,verify:"15-minute workout timer"},
+{id:3,name:"Reset your space",desc:"Tidy your desk or room",xp:15,icon:"🧹",minutes:0,verify:"Before + after photos"}
+];
+const today=()=>new Date().toLocaleDateString("en-CA");
+const fresh=()=>({xp:0,done:[],day:today(),name:"PLAYER 001",activeTimers:{},proofs:{}});
+let state;
+try{state=JSON.parse(localStorage.getItem("irlxp-save"))||fresh()}catch(e){state=fresh()}
+state.activeTimers=state.activeTimers||{};
+state.proofs=state.proofs||{};
+function save(){localStorage.setItem("irlxp-save",JSON.stringify(state))}
+const timers=state.activeTimers;
+function timeLeft(id){return timers[id]?Math.max(0,Math.ceil((timers[id]-Date.now())/1000)):0}
+function startTimer(id){const m=missions.find(x=>x.id===id);if(!m||!m.minutes||state.done.includes(id))return;timers[id]=Date.now()+m.minutes*60*1000;save();render();}
+function formatTime(s){return Math.floor(s/60).toString().padStart(2,"0")+":"+Math.floor(s%60).toString().padStart(2,"0")}
+function refreshDay(){if(state.day!==today()){state.day=today();state.done=[];state.proofs={};save()}}
+function level(){return Math.floor(state.xp/300)+1}
+function rank(){return state.xp>=1200?"DIAMOND":state.xp>=800?"GOLD":state.xp>=400?"SILVER":"BRONZE"}
+function render(){
+refreshDay();
+document.getElementById("playerName").textContent=state.name||"PLAYER 001";
+document.getElementById("nameInput").value=state.name;
+document.getElementById("totalXP").textContent=state.xp.toLocaleString();
+document.getElementById("level").textContent=level();
+document.getElementById("rank").textContent=rank();
+document.getElementById("rankCard").textContent=rank();
+document.getElementById("progressXP").textContent=state.xp%300;
+document.getElementById("fill").style.width=(state.xp%300/3)+"%";
+document.getElementById("toNext").textContent=(300-state.xp%300)+" XP until level "+(level()+1);
+document.getElementById("questCount").textContent=state.done.length+"/3";
+document.getElementById("quests").innerHTML=missions.map(m=>{let done=state.done.includes(m.id);let left=timeLeft(m.id);let started=!!timers[m.id];let proof=state.proofs||{};let tidyReady=!!(proof.before&&proof.after);let action=done?"Completed ✓":m.id===3?(tidyReady?"Submit photos & claim XP":"Add both photos to claim XP"):m.minutes?(left>0?"Timer running · "+formatTime(left):started?"Verify & claim XP":"Start "+m.minutes+"-minute timer"):"Claim XP";let disabled=done||(m.minutes>0&&started&&left>0)||(m.id===3&&!tidyReady);let photoUI=m.id===3?`<div class="photo-proof"><div class="photo-slot"><label for="beforePhoto">Before photo</label><input id="beforePhoto" class="photo-input" type="file" accept="image/*" capture="environment" ${done?"disabled":""}/>${proof.before?`<img class="proof-preview" src="${proof.before}" alt="Before photo preview"/>`:"<div class=\"photo-hint\">Take a photo before tidying</div>"}</div><div class="photo-slot"><label for="afterPhoto">After photo</label><input id="afterPhoto" class="photo-input" type="file" accept="image/*" capture="environment" ${done?"disabled":""}/>${proof.after?`<img class="proof-preview" src="${proof.after}" alt="After photo preview"/>`:"<div class=\"photo-hint\">Take a photo when finished</div>"}</div></div>`:"";return `<article class="quest"><div class="qtop"><div class="qicon">${m.icon}</div><div class="grow"><div class="qtitle">${m.name}</div><div class="qdesc">${m.desc}</div></div><div class="reward">+${m.xp} XP</div></div><div class="verify">Verification: ${m.verify}</div>${photoUI}<button class="claim" data-id="${m.id}" ${disabled?"disabled":""}>${action}</button></article>`}).join("");
+document.getElementById("allDone").innerHTML=state.done.length===3?'<div class="ranknote"><b>Daily quests complete!</b><br>You earned 65 XP. Come back tomorrow for fresh missions.</div>':"";
+renderLeaders();
+}
+function renderLeaders(){
+const season=document.getElementById("seasonBtn").classList.contains("active");
+const sample=season?[{name:"Nova",xp:2840},{name:"Ace",xp:2160},{name:state.name,xp:state.xp,you:true},{name:"Pixel",xp:1780}]:[{name:"Nova",xp:860},{name:"Pixel",xp:720},{name:state.name,xp:state.xp,you:true},{name:"Ace",xp:190}];
+sample.sort((a,b)=>b.xp-a.xp);
+document.getElementById("leaders").innerHTML=sample.map((p,i)=>`<div class="leader ${p.you?"you":""}"><div class="place">#${i+1}</div><div class="miniavatar">${p.you?"♙":"●"}</div><div class="grow"><b>${escapeHTML(p.name||"Player")}</b><div class="sub">Level ${Math.floor(p.xp/300)+1}</div></div><div class="xp">${p.xp.toLocaleString()} XP</div></div>`).join("");
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function compressPhoto(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const max=700;const scale=Math.min(1,max/Math.max(img.width,img.height));const canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL("image/jpeg",0.58));};img.src=reader.result;};reader.readAsDataURL(file);});}
+document.getElementById("quests").addEventListener("change",async e=>{const input=e.target;if(!input.matches("#beforePhoto,#afterPhoto")||!input.files||!input.files[0])return;const which=input.id==="beforePhoto"?"before":"after";try{const data=await compressPhoto(input.files[0]);state.proofs=state.proofs||{};state.proofs[which]=data;save();render();}catch(err){alert("Couldn't load that photo. Please try another image.");}});
+document.getElementById("quests").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(!b)return;const id=Number(b.dataset.id);if(state.done.includes(id))return;const m=missions.find(x=>x.id===id);if(m.id===3){if(!state.proofs||!state.proofs.before||!state.proofs.after){alert("Add both a before photo and an after photo first.");return;}const ok=confirm("Submit your before and after photos? Claim XP only if they honestly show your tidying task.");if(!ok)return;}else if(m.minutes){if(!timers[id]){startTimer(id);return}if(timeLeft(id)>0)return;const ok=confirm("Timer finished. Confirm you completed this activity honestly before claiming XP.");if(!ok)return;}state.done.push(id);state.xp+=m.xp;delete timers[id];save();render()});
+setInterval(()=>{let changed=false;for(const id of Object.keys(timers)){if(timeLeft(Number(id))===0)changed=true;}if(changed||Object.keys(timers).length)render();},1000);
+document.getElementById("questsTab").onclick=()=>{document.getElementById("questsView").hidden=false;document.getElementById("leaderView").hidden=true;document.getElementById("questsTab").classList.add("active");document.getElementById("leaderTab").classList.remove("active")};
+document.getElementById("leaderTab").onclick=()=>{document.getElementById("questsView").hidden=true;document.getElementById("leaderView").hidden=false;document.getElementById("leaderTab").classList.add("active");document.getElementById("questsTab").classList.remove("active");renderLeaders()};
+document.getElementById("weekBtn").onclick=()=>{document.getElementById("weekBtn").classList.add("active");document.getElementById("seasonBtn").classList.remove("active");renderLeaders()};
+document.getElementById("seasonBtn").onclick=()=>{document.getElementById("seasonBtn").classList.add("active");document.getElementById("weekBtn").classList.remove("active");renderLeaders()};
+document.getElementById("saveName").onclick=()=>{state.name=document.getElementById("nameInput").value.trim().slice(0,20)||"PLAYER 001";save();render()};
+document.getElementById("reset").onclick=()=>{if(confirm("Reset all demo progress on this device?")){state=fresh();save();render()}};
+render();
+</script>
+<script>
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
+</script>
+</body></html>
